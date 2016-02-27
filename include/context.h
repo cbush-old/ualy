@@ -21,6 +21,10 @@ class Context {
 
   public:
     void set_listener(Listener const&);
+  
+  public:
+    void process();
+    void suspend();
 
   private:
     class Context_impl* _impl;

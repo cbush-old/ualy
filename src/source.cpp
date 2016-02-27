@@ -38,3 +38,19 @@ void Source::unqueue(Buffer const& buffer) {
   AL_CALL(alSourceUnqueueBuffers(_name, 1, buffers));
 }
 
+void Source::set_position(vec3 const& position) {
+  AL_CALL(alSource3f(_name, AL_POSITION, XYZ(position)));
+}
+
+void Source::set_direction(vec3 const& direction) {
+  AL_CALL(alSource3f(_name, AL_DIRECTION, XYZ(direction)));
+}
+
+void Source::set_velocity(vec3 const& velocity) {
+  AL_CALL(alSource3f(_name, AL_VELOCITY, XYZ(velocity)));
+}
+
+void Source::set_gain(float gain) {
+  AL_CALL(alSourcef(_name, AL_GAIN, gain));
+}
+

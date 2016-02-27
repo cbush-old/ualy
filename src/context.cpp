@@ -5,31 +5,27 @@ using namespace al;
 
 namespace al {
 
-class Context_impl {
-  public:
-    Context_impl();
-    ~Context_impl();
-
-  private:
-    ALCdevice* _device;
-    ALCcontext* _context;
-
+struct Context_impl {
+  Context_impl();
+  ~Context_impl();
+  ALCdevice* device;
+  ALCcontext* context;
 };
 
 }
 
 Context_impl::Context_impl()
-  : _device(alcOpenDevice(nullptr)) // TODO: non-default devices
-  , _context(alcCreateContext(_device, nullptr))
+  : device(alcOpenDevice(nullptr)) // TODO: non-default devices
+  , context(alcCreateContext(device, nullptr))
 {
-  assert(_device);
-  assert(_context);
-  alcMakeContextCurrent(_context);
+  assert(device);
+  assert(context);
+  alcMakeContextCurrent(context);
 }
 
 Context_impl::~Context_impl() {
-  alcDestroyContext(_context);
-  alcCloseDevice(_device);
+  alcDestroyContext(context);
+  alcCloseDevice(device);
 }
 
 
@@ -49,4 +45,13 @@ void Context::set_listener(Listener const& listener) {
   AL_CALL(alListener3f(AL_POSITION, XYZ(listener.position)));
   AL_CALL(alListener3f(AL_VELOCITY, XYZ(listener.velocity)));
 }
+
+void Context::process() {
+  AL_CALL(alcProcessContext(_impl->context));
+}
+
+void Context::suspend() {
+  AL_CALL(alcSuspendContext(_impl->context));
+}
+
 
