@@ -24,7 +24,7 @@ class Buffer {
       data(format, data.data(), data.size() * sizeof(T), frequency);
     }
 
-  private:
+  public:
     void data(
       Format format,
       const void* data,

@@ -4,13 +4,10 @@
 
 namespace al {
 
-struct Source {
+struct Listener {
   vec3 position;
   vec3 velocity;
   float gain { 1.f };
-};
-
-struct Listener : public Source {
   orientation orientation;
 };
 

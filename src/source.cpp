@@ -51,6 +51,7 @@ void Source::set_velocity(vec3 const& velocity) {
 }
 
 void Source::set_gain(float gain) {
+  assert(gain >= 0.f);
   AL_CALL(alSourcef(_name, AL_GAIN, gain));
 }
 
