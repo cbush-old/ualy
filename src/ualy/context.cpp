@@ -5,11 +5,12 @@ using namespace al;
 
 namespace al {
 
-struct Context_impl {
-  Context_impl();
-  ~Context_impl();
-  ALCdevice* device;
-  ALCcontext* context;
+class Context_impl {
+  public:
+    Context_impl();
+    ~Context_impl();
+    ALCdevice* device;
+    ALCcontext* context;
 };
 
 }
