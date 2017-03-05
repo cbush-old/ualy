@@ -20,17 +20,11 @@ class Buffer {
     unsigned name() const;
 
     template<typename T>
-    void data(Format format, std::vector<T> data, size_t frequency) {
-      data(format, data.data(), data.size() * sizeof(T), frequency);
+    void data(Format format, std::vector<T> const &buffer, size_t frequency) {
+      data(format, buffer.data(), buffer.size() * sizeof(T), frequency);
     }
 
-  public:
-    void data(
-      Format format,
-      const void* data,
-      size_t size,
-      size_t frequency
-    );
+    void data(Format format, const void* data, size_t size, size_t frequency);
 
   private:
     unsigned _name;
