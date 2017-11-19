@@ -53,3 +53,13 @@ void Context::suspend()
 {
     AL_CALL(alcSuspendContext(_context));
 }
+
+void Context::set_doppler_factor(float factor)
+{
+    AL_CALL(alDopplerFactor(factor));
+}
+
+void Context::set_speed_of_sound(float meters_per_sec)
+{
+    AL_CALL(alSpeedOfSound(meters_per_sec));
+}

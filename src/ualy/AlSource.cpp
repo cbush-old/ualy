@@ -7,14 +7,34 @@
 using namespace al;
 
 Source::Source()
+    : _name(0)
+    , _pitch_multiplier(1.f)
 {
     AL_CALL(alGenSources(1, &_name));
 }
 
 Source::~Source()
 {
-    AL_CALL(alDeleteSources(1, &_name));
-    _name = 0;
+    if (_name)
+    {
+        AL_CALL(alDeleteSources(1, &_name));
+        _name = 0;
+    }
+}
+
+Source &Source::operator=(Source &&other)
+{
+    assert(&other != this);
+    std::swap(_name, other._name);
+    std::swap(_pitch_multiplier, other._pitch_multiplier);
+    return *this;
+}
+
+Source::Source(Source &&other)
+    : _name(other._name)
+    , _pitch_multiplier(other._pitch_multiplier)
+{
+    other._name = 0;
 }
 
 void Source::play()
@@ -68,4 +88,20 @@ void Source::set_gain(float gain)
 {
     assert(gain >= 0.f);
     AL_CALL(alSourcef(_name, AL_GAIN, gain));
+}
+
+void Source::set_pitch(float multiplier)
+{
+    assert(multiplier >= 0.f);
+    if (_pitch_multiplier != multiplier)
+    {
+        AL_CALL(alSourcef(_name, AL_PITCH, multiplier));
+    }
+}
+
+bool Source::is_playing() const
+{
+    ALint state;
+    AL_CALL(alGetSourcei(_name, AL_SOURCE_STATE, &state));
+    return state == AL_PLAYING;
 }

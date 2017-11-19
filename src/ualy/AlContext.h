@@ -42,6 +42,13 @@ public:
     void process();
 
     void suspend();
+    
+    void set_doppler_factor(float factor);
+
+    /*!
+     \brief Set the speed of sound.
+    */
+    void set_speed_of_sound(float meters_per_sec);
 
 private:
     ALCdevice_struct *_device;

@@ -15,8 +15,11 @@ public:
     */
     Source();
     
-    Source(Source const &) = delete;
     Source &operator=(Source const &) = delete;
+    Source &operator=(Source &&);
+    Source(Source const &) = delete;
+    Source(Source &&);
+
     ~Source();
 
     /*!
@@ -38,6 +41,11 @@ public:
      \brief stop the source and reset the state
     */
     void rewind();
+    
+    /*!
+     \return true if the source is playing.
+    */
+    bool is_playing() const;
 
     /*!
      \brief attach a buffer to the source
@@ -68,9 +76,16 @@ public:
      \brief set the source gain. default is 1.f
     */
     void set_gain(float gain);
+    
+    /*!
+     \brief set the pitch multiplier for the source.
+    */
+    void set_pitch(float multiplier);
 
 private:
     unsigned _name;
+    float _pitch_multiplier;
 };
+
 }
 

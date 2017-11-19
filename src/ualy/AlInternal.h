@@ -13,7 +13,7 @@
     __VA_ARGS__;                                                               \
     {                                                                          \
         ALenum error = alGetError();                                           \
-        if (error != AL_NO_ERROR)                                              \
+        if (error != AL_NO_ERROR && error != -1)                               \
         {                                                                      \
             throw al::exception("al call " #__VA_ARGS__ " failed: %d", error); \
         }                                                                      \
